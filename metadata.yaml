@@ -1,0 +1,28 @@
+_repo: The-River-War--An-Account-of-the-Reconquest-of-the-Sudan_4943
+_version: 0.0.1
+creator:
+  author:
+    agent_name: Churchill, Winston
+    aliases:
+    - Churchill, Winston Spencer
+    - Churchill, Winston Leonard Spencer, Sir
+    birthdate: 1874
+    deathdate: 1965
+    gutenberg_agent_id: '1601'
+    url: http://www.gutenberg.org/2009/agents/1601
+    wikipedia: http://en.wikipedia.org/wiki/Winston_Churchill
+description: ''
+gutenberg_issued: '2004-01-01'
+gutenberg_type: Text
+identifiers:
+  gutenberg: '4943'
+language: en
+publisher: Project Gutenberg
+rights: Public domain in the USA.
+rights_url: http://creativecommons.org/about/pdm
+subjects:
+- !lcc 'DT'
+- !lcsh 'Sudan -- History -- 1881-1899'
+- GITenberg
+title: 'The River War: An Account of the Reconquest of the Sudan'
+url: http://www.gutenberg.org/ebooks/4943

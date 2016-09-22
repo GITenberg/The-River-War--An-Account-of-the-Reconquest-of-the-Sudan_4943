@@ -1,0 +1,61 @@
+sudo: required
+dist: trusty
+language: ruby
+
+before_install:
+before_install:
+- gem install asciidoctor -v 1.5.2
+- gem install tilt
+- sudo pip install git+https://github.com/gitenberg-dev/gitberg
+- sudo pip install pillow
+- sudo pip install cssutils
+- sudo pip install docutils
+- sudo pip install roman
+- sudo pip install git+https://github.com/gitenberg-dev/pg-epubmaker
+script:
+- VERSION=`ruby -e "require 'yaml'; meta = YAML.load_file('metadata.yaml'); puts meta['_version'];"`
+- git clone https://github.com/gitenberg-dev/asciidoctor-htmlbook.git
+- sudo pip install -r asciidoctor-htmlbook/gitberg-machine/requirements.txt
+
+- /usr/bin/python -c "from gitenberg import travis; travis.build_epub()"
+- ebook-convert book.epub book.mobi
+- xvfb-run ebook-convert book.epub book.pdf
+branches:
+  only:
+  - master
+notifications:
+  webhooks:
+    urls:
+      - https://unglue.it/api/travisci/webhook
+    on_success: always
+    on_failure: never
+    on_start: never
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: osn8Oi2Q3BT7KXCqZxAGCTz6oxMuf23f80BvqZsCLsE/XXWue4/lz1YF4NO0yfZGy40w/AiM+HjI7pQY9jiJq4GhnmKDHNzHruJ3Gi3We2uOu9enFbRBx4doFPtO3ISTd/YcG8i433hGxk9CWbKXOYQjjmT8MuwZ2ctnA4zafWKGVz/ThkNb0E5PkIniKdFbGuj7ADEdPmwxy4oTXwNn42Ucg0sRVPWofJTeSpDm0gcN/Hvw/0tYqD2FWWaIfZg12y2Rskxx/8TPdYXTe/uR6h4Sq0F+glkmYMz94KQautith0QHT+Z2Fk2Hbn9HYO7poP4GcMPMka5m/ETJJU+dySszHiBRIXR0eZuCj+BPAVHuMUlZvw89ONdZUoz9gY9Rn2OlqgnhA+BTMSJWh5TKPzxFkNcWitEP0t60VoYpF99lio0rBQ9Qn709icJvVJDZdMzJ0CQxA1LqnPQR9SiflF0Y34azt2yQsLDWByhosfMZ7aOZ0bxivbva5lrVJrGRuE7rMy4FwtE8QDZrdIZt1cunTbTZv/7+7WlXUD7E+tMXKYwIVtBjZr9JeAUBWTDD/VDR3HeROtYjS4jQz7B9OQFMFJjlH4RKiqdRxKoiylVD7azNWCPrsndHcHqLQMHYTdYcUOXRU1LwxpteJ7GbrlMxNdrwDXyuM8j5Yc6AuAY=
+  file:
+    - book.epub
+    - book.mobi
+    - book.pdf
+  "on":
+    repo: GITenberg/The-River-War--An-Account-of-the-Reconquest-of-the-Sudan_4943
+addons:
+  apt:
+    packages:
+    - xsltproc
+    - xvfb
+    - calibre
+    - python-pip
+    - git
+    - python-dev
+    - libjpeg-dev
+    - libpng-dev
+    - libfreetype6
+    - libfreetype6-dev
+    - zlib1g-dev
+    - python-lxml
+    - libxml2-dev
+    - libxslt1-dev
+    - tidy
